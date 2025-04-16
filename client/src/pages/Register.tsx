@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Link } from "wouter";
+import { Link, useNavigate } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -17,6 +17,7 @@ export default function Register() {
   });
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -30,14 +31,15 @@ export default function Register() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    
-    // Simulate registration
+
+    // Simulate registration and redirect
     setTimeout(() => {
       toast({
         title: "Registration Successful",
         description: "Your API key has been generated and sent to your email.",
       });
       setIsLoading(false);
+      navigate("/dashboard"); // Redirect to dashboard after successful registration
     }, 1500);
   };
 
@@ -64,7 +66,7 @@ export default function Register() {
                 required
               />
             </div>
-            
+
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -77,7 +79,7 @@ export default function Register() {
                 required
               />
             </div>
-            
+
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
               <Input
@@ -91,7 +93,7 @@ export default function Register() {
               />
               <p className="text-xs text-gray-500">Password must be at least 8 characters long with numbers and symbols</p>
             </div>
-            
+
             <div className="space-y-2">
               <Label htmlFor="companyName">Company Name (Optional)</Label>
               <Input
@@ -103,7 +105,7 @@ export default function Register() {
                 onChange={handleChange}
               />
             </div>
-            
+
             <div className="flex items-center space-x-2 pt-2">
               <Checkbox 
                 id="terms" 
@@ -129,7 +131,7 @@ export default function Register() {
                 </Link>
               </label>
             </div>
-            
+
             <Button type="submit" className="w-full mt-6" disabled={isLoading || !formData.agreedToTerms}>
               {isLoading ? "Creating Account..." : "Create Account"}
             </Button>
