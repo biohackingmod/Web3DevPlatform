@@ -42,10 +42,10 @@ export default function Navbar() {
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
               <Link href="/">
-                <a className="flex items-center">
+                <div className="flex items-center cursor-pointer">
                   <Logo className="h-8 w-auto" />
                   <span className="ml-2 text-xl font-bold text-gray-900">BlockchainKit</span>
-                </a>
+                </div>
               </Link>
             </div>
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
