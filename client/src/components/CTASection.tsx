@@ -12,20 +12,16 @@ export default function CTASection() {
         <div className="mt-8 flex lg:mt-0 lg:flex-shrink-0">
           <div className="inline-flex rounded-md shadow">
             <Link href="/register">
-              <a>
-                <Button variant="outline" className="bg-white text-primary hover:bg-indigo-50">
-                  Get started
-                </Button>
-              </a>
+              <Button variant="outline" className="bg-white text-primary hover:bg-indigo-50 cursor-pointer">
+                Get started
+              </Button>
             </Link>
           </div>
           <div className="ml-3 inline-flex rounded-md shadow">
             <Link href="/documentation">
-              <a>
-                <Button variant="secondary" className="bg-indigo-600 text-white hover:bg-indigo-700">
-                  Learn more
-                </Button>
-              </a>
+              <Button variant="secondary" className="bg-indigo-600 text-white hover:bg-indigo-700 cursor-pointer">
+                Learn more
+              </Button>
             </Link>
           </div>
         </div>

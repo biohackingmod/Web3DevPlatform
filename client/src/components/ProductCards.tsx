@@ -61,10 +61,10 @@ export default function ProductCards() {
                 </div>
                 <div className="mt-5">
                   <Link href={product.href}>
-                    <a className={`${product.linkColor} font-medium flex items-center`}>
+                    <span className={`${product.linkColor} font-medium flex items-center cursor-pointer`}>
                       Learn more 
                       <ArrowRight className="ml-1 h-4 w-4" />
-                    </a>
+                    </span>
                   </Link>
                 </div>
               </div>

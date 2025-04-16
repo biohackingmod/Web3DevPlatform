@@ -55,17 +55,17 @@ export default function Footer() {
                   </li>
                   <li>
                     <Link href="/products#nft">
-                      <a className="text-base text-gray-400 hover:text-white">NFT APIs</a>
+                      <span className="text-base text-gray-400 hover:text-white cursor-pointer">NFT APIs</span>
                     </Link>
                   </li>
                   <li>
                     <Link href="/products#data">
-                      <a className="text-base text-gray-400 hover:text-white">Data Analytics</a>
+                      <span className="text-base text-gray-400 hover:text-white cursor-pointer">Data Analytics</span>
                     </Link>
                   </li>
                   <li>
                     <Link href="/products#security">
-                      <a className="text-base text-gray-400 hover:text-white">Security</a>
+                      <span className="text-base text-gray-400 hover:text-white cursor-pointer">Security</span>
                     </Link>
                   </li>
                 </ul>
@@ -75,22 +75,22 @@ export default function Footer() {
                 <ul className="mt-4 space-y-4">
                   <li>
                     <Link href="/documentation">
-                      <a className="text-base text-gray-400 hover:text-white">Documentation</a>
+                      <span className="text-base text-gray-400 hover:text-white cursor-pointer">Documentation</span>
                     </Link>
                   </li>
                   <li>
                     <Link href="/documentation#api-reference">
-                      <a className="text-base text-gray-400 hover:text-white">API Reference</a>
+                      <span className="text-base text-gray-400 hover:text-white cursor-pointer">API Reference</span>
                     </Link>
                   </li>
                   <li>
                     <Link href="/documentation#tutorials">
-                      <a className="text-base text-gray-400 hover:text-white">Tutorials</a>
+                      <span className="text-base text-gray-400 hover:text-white cursor-pointer">Tutorials</span>
                     </Link>
                   </li>
                   <li>
                     <Link href="/blog">
-                      <a className="text-base text-gray-400 hover:text-white">Blog</a>
+                      <span className="text-base text-gray-400 hover:text-white cursor-pointer">Blog</span>
                     </Link>
                   </li>
                 </ul>
@@ -102,22 +102,22 @@ export default function Footer() {
                 <ul className="mt-4 space-y-4">
                   <li>
                     <Link href="/about">
-                      <a className="text-base text-gray-400 hover:text-white">About</a>
+                      <span className="text-base text-gray-400 hover:text-white cursor-pointer">About</span>
                     </Link>
                   </li>
                   <li>
                     <Link href="/careers">
-                      <a className="text-base text-gray-400 hover:text-white">Careers</a>
+                      <span className="text-base text-gray-400 hover:text-white cursor-pointer">Careers</span>
                     </Link>
                   </li>
                   <li>
                     <Link href="/partners">
-                      <a className="text-base text-gray-400 hover:text-white">Partners</a>
+                      <span className="text-base text-gray-400 hover:text-white cursor-pointer">Partners</span>
                     </Link>
                   </li>
                   <li>
                     <Link href="/contact">
-                      <a className="text-base text-gray-400 hover:text-white">Contact</a>
+                      <span className="text-base text-gray-400 hover:text-white cursor-pointer">Contact</span>
                     </Link>
                   </li>
                 </ul>
@@ -127,17 +127,17 @@ export default function Footer() {
                 <ul className="mt-4 space-y-4">
                   <li>
                     <Link href="/privacy">
-                      <a className="text-base text-gray-400 hover:text-white">Privacy</a>
+                      <span className="text-base text-gray-400 hover:text-white cursor-pointer">Privacy</span>
                     </Link>
                   </li>
                   <li>
                     <Link href="/terms">
-                      <a className="text-base text-gray-400 hover:text-white">Terms</a>
+                      <span className="text-base text-gray-400 hover:text-white cursor-pointer">Terms</span>
                     </Link>
                   </li>
                   <li>
                     <Link href="/cookies">
-                      <a className="text-base text-gray-400 hover:text-white">Cookie Policy</a>
+                      <span className="text-base text-gray-400 hover:text-white cursor-pointer">Cookie Policy</span>
                     </Link>
                   </li>
                 </ul>

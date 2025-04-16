@@ -19,20 +19,16 @@ export default function HeroSection() {
               <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                 <div className="rounded-md shadow">
                   <Link href="/register">
-                    <a>
-                      <Button className="w-full bg-gray-900 hover:bg-gray-800">
-                        Start Building
-                      </Button>
-                    </a>
+                    <Button className="w-full bg-gray-900 hover:bg-gray-800 cursor-pointer">
+                      Start Building
+                    </Button>
                   </Link>
                 </div>
                 <div className="mt-3 sm:mt-0 sm:ml-3">
                   <Link href="/contact">
-                    <a>
-                      <Button variant="outline" className="w-full bg-white text-gray-900 hover:bg-gray-50">
-                        Book a Demo
-                      </Button>
-                    </a>
+                    <Button variant="outline" className="w-full bg-white text-gray-900 hover:bg-gray-50 cursor-pointer">
+                      Book a Demo
+                    </Button>
                   </Link>
                 </div>
               </div>

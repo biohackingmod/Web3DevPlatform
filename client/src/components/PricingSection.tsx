@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
+import { Link } from "wouter";
 
 export default function PricingSection() {
   const plans = [
@@ -78,9 +79,11 @@ export default function PricingSection() {
                   <span className="text-4xl font-extrabold text-gray-900">{plan.price}</span>
                   <span className="text-base font-medium text-gray-500">{plan.period}</span>
                 </p>
-                <Button className="mt-8 block w-full">
-                  {plan.cta}
-                </Button>
+                <Link href={plan.highlighted ? "/register" : plan.name === "Free" ? "/register" : "/contact"}>
+                  <Button className="mt-8 block w-full cursor-pointer">
+                    {plan.cta}
+                  </Button>
+                </Link>
               </div>
               <div className="pt-6 pb-8 px-6">
                 <h3 className="text-xs font-medium text-gray-900 tracking-wide uppercase">What's included</h3>
