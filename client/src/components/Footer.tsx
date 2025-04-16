@@ -17,22 +17,30 @@ export default function Footer() {
               Building the future of blockchain development with powerful, reliable tools designed for developers.
             </p>
             <div className="flex space-x-6">
-              <a href="#" className="text-gray-400 hover:text-gray-300">
-                <span className="sr-only">Twitter</span>
-                <FaTwitter className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-gray-300">
-                <span className="sr-only">GitHub</span>
-                <FaGithub className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-gray-300">
-                <span className="sr-only">Discord</span>
-                <FaDiscord className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-gray-300">
-                <span className="sr-only">LinkedIn</span>
-                <FaLinkedin className="h-5 w-5" />
-              </a>
+              <Link href="/social/twitter">
+                <span className="text-gray-400 hover:text-gray-300 cursor-pointer">
+                  <span className="sr-only">Twitter</span>
+                  <FaTwitter className="h-5 w-5" />
+                </span>
+              </Link>
+              <Link href="/social/github">
+                <span className="text-gray-400 hover:text-gray-300 cursor-pointer">
+                  <span className="sr-only">GitHub</span>
+                  <FaGithub className="h-5 w-5" />
+                </span>
+              </Link>
+              <Link href="/social/discord">
+                <span className="text-gray-400 hover:text-gray-300 cursor-pointer">
+                  <span className="sr-only">Discord</span>
+                  <FaDiscord className="h-5 w-5" />
+                </span>
+              </Link>
+              <Link href="/social/linkedin">
+                <span className="text-gray-400 hover:text-gray-300 cursor-pointer">
+                  <span className="sr-only">LinkedIn</span>
+                  <FaLinkedin className="h-5 w-5" />
+                </span>
+              </Link>
             </div>
           </div>
           <div className="mt-12 grid grid-cols-2 gap-8 xl:mt-0 xl:col-span-2">
@@ -42,7 +50,7 @@ export default function Footer() {
                 <ul className="mt-4 space-y-4">
                   <li>
                     <Link href="/products#node">
-                      <a className="text-base text-gray-400 hover:text-white">Node Infrastructure</a>
+                      <span className="text-base text-gray-400 hover:text-white cursor-pointer">Node Infrastructure</span>
                     </Link>
                   </li>
                   <li>
