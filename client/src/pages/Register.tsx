@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link, useNavigate } from "wouter";
+import { Link } from "wouter";
+import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -17,7 +18,7 @@ export default function Register() {
   });
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
-  const navigate = useNavigate();
+  const [_, setLocation] = useLocation();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -39,7 +40,7 @@ export default function Register() {
         description: "Your API key has been generated and sent to your email.",
       });
       setIsLoading(false);
-      navigate("/dashboard"); // Redirect to dashboard after successful registration
+      setLocation("/dashboard"); // Redirect to dashboard after successful registration
     }, 1500);
   };
 
