@@ -1,4 +1,4 @@
-import { Switch, Route } from "wouter";
+import { Switch, Route, useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -19,6 +19,11 @@ import Careers from "@/pages/Careers";
 import Partners from "@/pages/Partners";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import DashboardPage from "@/pages/dashboard";
+import ApiPlaygroundPage from "@/pages/dashboard/api-playground-page";
+import SettingsPage from "@/pages/dashboard/settings";
+import { AuthProvider } from "@/hooks/use-auth";
+import { ProtectedRoute } from "@/lib/protected-route";
 
 function Router() {
   return (
