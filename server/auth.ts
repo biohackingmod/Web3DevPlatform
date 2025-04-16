@@ -5,14 +5,15 @@ import session from "express-session";
 import { scrypt, randomBytes, timingSafeEqual } from "crypto";
 import { promisify } from "util";
 import { storage } from "./storage";
-import { User } from "@shared/schema";
+import { User as UserType } from "@shared/schema";
 import connectPg from "connect-pg-simple";
 import { pool } from "./db";
 
-// Add User to Express session
+// Add UserType to Express session
 declare global {
   namespace Express {
-    interface User extends User {}
+    // Use interface merging with a different name to avoid recursion
+    interface User extends UserType {}
   }
 }
 
@@ -78,7 +79,7 @@ export function setupAuth(app: Express) {
     }),
   );
 
-  passport.serializeUser((user, done) => {
+  passport.serializeUser((user: Express.User, done) => {
     done(null, user.id);
   });
 
@@ -128,7 +129,7 @@ export function setupAuth(app: Express) {
 
   // Login endpoint
   app.post("/api/login", (req, res, next) => {
-    passport.authenticate("local", (err, user, info) => {
+    passport.authenticate("local", (err: Error, user: Express.User | false, info: { message: string }) => {
       if (err) return next(err);
       if (!user) {
         return res.status(401).json({ message: info?.message || "Authentication failed" });
@@ -156,17 +157,33 @@ export function setupAuth(app: Express) {
       return res.status(401).json({ message: "Not authenticated" });
     }
     // Return user without password
-    const { password, ...safeUser } = req.user;
+    const { password, ...safeUser } = req.user as UserType & { password: string };
     res.json(safeUser);
   });
 
   // Update user profile
-  app.put("/api/user", (req, res, next) => {
+  app.put("/api/user", async (req, res, next) => {
     if (!req.isAuthenticated() || !req.user) {
       return res.status(401).json({ message: "Not authenticated" });
     }
-    // Implement update user logic here
-    res.status(200).json({ message: "Profile updated" });
+    
+    try {
+      const userId = req.user.id;
+      const { password, role, apiKey, ...updateData } = req.body;
+      
+      // Update the user with safe data (prevent changing protected fields)
+      const updatedUser = await storage.updateUser(userId, updateData);
+      
+      if (!updatedUser) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      
+      // Return user without password
+      const { password: pw, ...safeUser } = updatedUser;
+      res.status(200).json(safeUser);
+    } catch (error) {
+      next(error);
+    }
   });
 
   // Generate new API key
@@ -178,8 +195,13 @@ export function setupAuth(app: Express) {
     try {
       // Generate and save new API key
       const newApiKey = `bk_${randomBytes(24).toString('hex')}`;
+      
       // Update user API key in database
-      // ...
+      const updatedUser = await storage.updateUser(req.user.id, { apiKey: newApiKey });
+      
+      if (!updatedUser) {
+        return res.status(404).json({ message: "User not found" });
+      }
       
       res.status(200).json({ apiKey: newApiKey });
     } catch (error) {

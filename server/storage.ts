@@ -71,7 +71,12 @@ export class MemStorage implements IStorage {
   async createUser(insertUser: InsertUser): Promise<User> {
     const id = this.currentUserId++;
     const now = new Date();
-    const user: User = { ...insertUser, id, createdAt: now };
+    const user: User = { 
+      ...insertUser, 
+      id, 
+      createdAt: now,
+      role: insertUser.role || "user"
+    };
     this.users.set(id, user);
     return user;
   }
@@ -201,6 +206,7 @@ export class MemStorage implements IStorage {
         password: "password123", // In a real app, this would be hashed
         email: `user${i}@example.com`,
         apiKey: `bk_test_${i}`,
+        role: i === 1 ? "admin" : "user", // First user is admin, others are regular users
         createdAt: new Date(2023, 0, 1) // January 1, 2023
       });
     }
@@ -303,7 +309,8 @@ export class DatabaseStorage implements IStorage {
         username: `user${i}`,
         password: "password123", // In a real app, this would be hashed
         email: `user${i}@example.com`,
-        apiKey: `bk_test_${i}`
+        apiKey: `bk_test_${i}`,
+        role: i === 1 ? "admin" : "user" // First user is admin, others are regular users
       }).returning();
       userRecords.push(user);
     }

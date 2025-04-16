@@ -62,7 +62,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const userId = parseInt(req.params.id);
       
       // Only allow users to view their own data unless they're an admin
-      if (userId !== req.user.id && req.user.role !== "admin") {
+      if (userId !== req.user?.id && req.user?.role !== "admin") {
         return res.status(403).json({ message: "Forbidden" });
       }
       
@@ -167,6 +167,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/usage", requireAuth, async (req, res) => {
     try {
+      if (!req.user) {
+        return res.status(401).json({ message: "Authentication required" });
+      }
       const usage = await storage.getUserApiUsage(req.user.id);
       res.json(usage);
     } catch (error) {
@@ -210,6 +213,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // Smart contract endpoints
   app.get("/api/contracts", requireAuth, (req, res) => {
+    if (!req.user) {
+      return res.status(401).json({ message: "Authentication required" });
+    }
     // Mock contract data for demo purposes
     const contracts = [
       { 
