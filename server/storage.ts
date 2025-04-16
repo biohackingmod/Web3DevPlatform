@@ -11,7 +11,9 @@ export interface IStorage {
   getUser(id: number): Promise<User | undefined>;
   getUserByUsername(username: string): Promise<User | undefined>;
   getUserByEmail(email: string): Promise<User | undefined>;
+  getUserByApiKey(apiKey: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
+  updateUser(id: number, data: Partial<InsertUser>): Promise<User | undefined>;
   
   // Blog operations
   getBlogPosts(): Promise<BlogPost[]>;
@@ -59,6 +61,12 @@ export class MemStorage implements IStorage {
       (user) => user.email === email,
     );
   }
+  
+  async getUserByApiKey(apiKey: string): Promise<User | undefined> {
+    return Array.from(this.users.values()).find(
+      (user) => user.apiKey === apiKey,
+    );
+  }
 
   async createUser(insertUser: InsertUser): Promise<User> {
     const id = this.currentUserId++;
@@ -66,6 +74,15 @@ export class MemStorage implements IStorage {
     const user: User = { ...insertUser, id, createdAt: now };
     this.users.set(id, user);
     return user;
+  }
+  
+  async updateUser(id: number, data: Partial<InsertUser>): Promise<User | undefined> {
+    const user = this.users.get(id);
+    if (!user) return undefined;
+    
+    const updatedUser = { ...user, ...data };
+    this.users.set(id, updatedUser);
+    return updatedUser;
   }
   
   // Blog operations
@@ -206,6 +223,11 @@ export class DatabaseStorage implements IStorage {
     const [user] = await db.select().from(users).where(eq(users.email, email));
     return user || undefined;
   }
+  
+  async getUserByApiKey(apiKey: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.apiKey, apiKey));
+    return user || undefined;
+  }
 
   async createUser(insertUser: InsertUser): Promise<User> {
     const [user] = await db
@@ -213,6 +235,15 @@ export class DatabaseStorage implements IStorage {
       .values(insertUser)
       .returning();
     return user;
+  }
+  
+  async updateUser(id: number, data: Partial<InsertUser>): Promise<User | undefined> {
+    const [user] = await db
+      .update(users)
+      .set(data)
+      .where(eq(users.id, id))
+      .returning();
+    return user || undefined;
   }
   
   // Blog operations

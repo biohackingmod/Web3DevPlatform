@@ -347,7 +347,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // Simulate blockchain events every 10 seconds for demo purposes
   setInterval(() => {
-    broadcastToSubscribers(wss, 'blocks', {
+    broadcastData(wss, 'blocks', {
       type: 'new_block',
       chain: 'ethereum',
       blockNumber: Math.floor(Math.random() * 1000000) + 15000000,
@@ -371,4 +371,50 @@ function generateApiKey(): string {
   }
   
   return `bk_${result}`;
+}
+
+// Helper to send initial data when client subscribes to a channel
+function sendInitialData(ws: WebSocket, channel: string) {
+  if (channel === 'blocks') {
+    ws.send(JSON.stringify({
+      type: 'data',
+      channel: 'blocks',
+      data: {
+        chain: 'ethereum',
+        blockNumber: 15000000,
+        timestamp: new Date().toISOString(),
+        transactions: 150
+      }
+    }));
+  } else if (channel === 'transactions') {
+    ws.send(JSON.stringify({
+      type: 'data',
+      channel: 'transactions',
+      data: {
+        txHash: '0x' + crypto.randomBytes(32).toString('hex'),
+        from: '0x' + crypto.randomBytes(20).toString('hex'),
+        to: '0x' + crypto.randomBytes(20).toString('hex'),
+        value: '0.1 ETH',
+        timestamp: new Date().toISOString()
+      }
+    }));
+  }
+}
+
+// Broadcast to all clients subscribed to a specific channel
+function broadcastData(wss: WebSocketServer, channel: string, data: any) {
+  wss.clients.forEach((client) => {
+    if (client.readyState === WebSocket.OPEN) {
+      const clientData = (client as any).clientData;
+      
+      // If client has subscription data and is subscribed to this channel
+      if (clientData && clientData.subscriptions && clientData.subscriptions.includes(channel)) {
+        client.send(JSON.stringify({
+          type: 'data',
+          channel,
+          data
+        }));
+      }
+    }
+  });
 }

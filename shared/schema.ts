@@ -3,12 +3,15 @@ import { createInsertSchema } from "drizzle-zod";
 import { relations } from "drizzle-orm";
 import { z } from "zod";
 
+export const userRoles = pgEnum('user_role', ['user', 'admin']);
+
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
   username: text("username").notNull().unique(),
   password: text("password").notNull(),
   email: text("email").notNull().unique(),
   apiKey: text("api_key").notNull().unique(),
+  role: userRoles("role").default("user").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
