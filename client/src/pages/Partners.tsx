@@ -1,3 +1,4 @@
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "wouter";
@@ -233,10 +234,7 @@ export default function Partners() {
               <div key={partner.name}>
                 <div>
                   <span className="inline-flex items-center justify-center h-12 w-12 rounded-md bg-indigo-100 text-indigo-600">
-                    {typeof partner.logo === 'function' 
-                      ? <partner.logo className="h-6 w-6" /> 
-                      : <partner.logo className="h-6 w-6" />
-                    }
+                    {React.createElement(partner.logo, { className: "h-6 w-6" })}
                   </span>
                 </div>
                 <div className="mt-4">
